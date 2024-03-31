@@ -22,7 +22,7 @@ func main() {
 	ab.SetFontSize(30)
 	ab.SetAvatarSize(64, 64)
 
-	svgContent, err := ab.GenerateImageAndSave("PP")
+	svgContent, err := ab.GenerateImageAndSavePNG("PP")
 	if err != nil {
 		fmt.Println(err)
 		return
