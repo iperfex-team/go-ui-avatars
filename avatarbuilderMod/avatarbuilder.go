@@ -6,7 +6,6 @@ package avatarbuilderMod
 */
 
 import (
-	"bufio"
 	"bytes"
 	"encoding/base64"
 	"fmt"
