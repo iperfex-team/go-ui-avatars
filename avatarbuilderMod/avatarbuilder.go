@@ -73,31 +73,20 @@ func (ab *AvatarBuilder) SetAvatarSize(w int, h int) {
 	ab.H = h
 }
 
-func (ab *AvatarBuilder) GenerateImageAndSavePNG(s string, outname string) error {
+func (ab *AvatarBuilder) GenerateImageAndSavePNG(s string) (string, error) {
 	bs, err := ab.GenerateImage(s)
 	if err != nil {
-		return err
+		return "", err
 	}
 
-	// Save that RGBA image to disk.
-	outFile, err := os.Create(outname)
-	if err != nil {
-		return fmt.Errorf("create file: %w", err)
-	}
-	defer outFile.Close()
+	buf := &bytes.Buffer{}
 
-	b := bufio.NewWriter(outFile)
-	if _, err := b.Write(bs); err != nil {
-		return fmt.Errorf("write bytes to file: %w", err)
-	}
-	if err = b.Flush(); err != nil {
-		return fmt.Errorf("flush image: %w", err)
-	}
+	buf.WriteString(string(bs))
 
-	return nil
+	return buf.String(), nil
 }
 
-func (ab *AvatarBuilder) GenerateImageAndSave(s string) (string, error) {
+func (ab *AvatarBuilder) GenerateImageAndSaveSVG(s string) (string, error) {
 	bs, err := ab.GenerateImage(s)
 	if err != nil {
 		return "", err
